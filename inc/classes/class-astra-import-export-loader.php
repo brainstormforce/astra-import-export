@@ -65,20 +65,20 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		function astra_import_export_section( ) {
 			?>
 			<div class="postbox" id="astra-ie">
-				<h3 class="hndle"><?php _e( 'Export Settings', 'astra' );?></h3>
+				<h3 class="hndle"><?php _e( 'Export Settings', 'astra-import-export' );?></h3>
 				<div class="inside">
 					<form method="post">
 						<p><input type="hidden" name="astra_ie_action" value="export_settings" /></p>
 						<p style="margin-bottom:0">
 							<?php wp_nonce_field( 'astra_export_nonce', 'astra_export_nonce' ); ?>
-							<?php submit_button( __( 'Export', 'astra' ), 'button', 'submit', false, array( 'id' => '' ) ); ?>
+							<?php submit_button( __( 'Export', 'astra-import-export' ), 'button', 'submit', false, array( 'id' => '' ) ); ?>
 						</p>
 					</form>
 				</div>
 			</div>
 
 			<div class="postbox" id="astra-ie">
-				<h3 class="hndle"><?php _e( 'Import Settings', 'astra' );?></h3>
+				<h3 class="hndle"><?php _e( 'Import Settings', 'astra-import-export' );?></h3>
 				<div class="inside">
 					<form method="post" enctype="multipart/form-data">
 						<p>
@@ -87,7 +87,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 						<p style="margin-bottom:0">
 							<input type="hidden" name="astra_ie_action" value="import_settings" />
 							<?php wp_nonce_field( 'astra_import_nonce', 'astra_import_nonce' ); ?>
-							<?php submit_button( __( 'Import', 'astra' ), 'button', 'submit', false, array( 'id' => '' ) ); ?>
+							<?php submit_button( __( 'Import', 'astra-import-export' ), 'button', 'submit', false, array( 'id' => '' ) ); ?>
 						</p>
 					</form>
 
@@ -118,13 +118,13 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			$extension = end( explode( '.', $_FILES['import_file']['name'] ) );
 
 			if ( $extension != 'json' ) {
-				wp_die( __( 'Please upload a valid .json file', 'gp-premium' ) );
+				wp_die( __( 'Please upload a valid .json file', 'astra-import-export' ) );
 			}
 
 			$import_file = $_FILES['import_file']['tmp_name'];
 
 			if ( empty( $import_file ) ) {
-				wp_die( __( 'Please upload a file to import', 'gp-premium' ) );
+				wp_die( __( 'Please upload a file to import', 'astra-import-export' ) );
 			}
 
 			// Retrieve the settings from the file and convert the json object to an array.
