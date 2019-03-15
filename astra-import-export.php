@@ -50,4 +50,10 @@ if ( ! function_exists( 'astra_import_export_setup' ) ) :
 
 	add_action( 'plugins_loaded', 'astra_import_export_setup' );
 
+	function my_plugin_action_links( $links ) {
+	   $links[] = '<a href="'. esc_url( get_admin_url(null, 'themes.php?page=astra') ) .'">Settings</a>';
+	   return $links;
+	}
+	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'my_plugin_action_links' );
+
 endif;
