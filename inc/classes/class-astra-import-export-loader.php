@@ -59,9 +59,9 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		}
 
 		/**
-		 * Customizer Preview
+		 * Function enqueue_scripts() to enqueue files.
 		 */
-		function enqueue_scripts() {
+		public function enqueue_scripts() {
 
 			wp_register_style( 'astra-import-export-css', ASTRA_IMPORT_EXPORT_URI . 'inc/assets/css/style.css', array(), ASTRA_IMPORT_EXPORT_VER );
 
@@ -69,17 +69,15 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 
 		/**
 		 * Add postMessage support for site title and description for the Theme Customizer.
-		 *
-		 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
 		 */
-		function astra_import_export_section() {
-			// Enqueue
+		public function astra_import_export_section() {
+			// Enqueue.
 			wp_enqueue_style( 'astra-import-export-css' );
 			?>
 			<div class="postbox" id="astra-ie">
-				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-download"></span><?php _e( 'Export Settings', 'astra-import-export' ); ?></h2>
+				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-download"></span><?php __( 'Export Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
-					<p><?php _e( 'Export Active addons list with Customizer settings.', 'astra-import-export' ); ?></p>
+					<p><?php __( 'Export Active addons list with Customizer settings.', 'astra-import-export' ); ?></p>
 					<form method="post">
 						<hr style="margin:10px 0;border-bottom:0;">
 						<p><input type="hidden" name="astra_ie_action" value="export_settings" /></p>
@@ -92,7 +90,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			</div>
 
 			<div class="postbox" id="astra-ie">
-				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-upload"></span><?php _e( 'Import Settings', 'astra-import-export' ); ?></h2>
+				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-upload"></span><?php __( 'Import Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
 					<form method="post" enctype="multipart/form-data">
 						<p>
@@ -116,7 +114,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @since 1.7
 		 */
 		public static function import() {
-			if ( empty( $_POST['astra_ie_action'] ) || 'import_settings' != $_POST['astra_ie_action'] ) {
+			if ( wp_verify_nonce( empty( $_POST['astra_ie_action'] ) ) || 'import_settings' !== $_POST['astra_ie_action'] ) {
 				return;
 			}
 
@@ -131,27 +129,30 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			$filename  = $_FILES['import_file']['name'];
 			$extension = end( explode( '.', $filename ) );
 
-			if ( $extension != 'json' ) {
-				wp_die( __( 'Please upload a valid .json file', 'astra-import-export' ) );
+			if ( 'json' !== $extension ) {
+				wp_die( esc_html( 'Please upload a valid .json file', 'astra-import-export' ) );
 			}
 
 			$import_file = $_FILES['import_file']['tmp_name'];
 
 			if ( empty( $import_file ) ) {
-				wp_die( __( 'Please upload a file to import', 'astra-import-export' ) );
+				wp_die( esc_html( 'Please upload a file to import', 'astra-import-export' ) );
 			}
 
 			// Retrieve the settings from the file and convert the json object to an array.
-			$settings = json_decode( file_get_contents( $import_file ), true );
+			$request = wp_remote_get( $import_file );
+			// Get the body of the response.
+			$response = wp_remote_retrieve_body( $request );
+			$settings = json_decode( $response, true );
 
-			// Astra addons activation
+			// Astra addons activation.
 			if ( class_exists( 'Astra_Admin_Helper' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $settings['astra-addons'] );
 			}
 
 			$astra_theme_options = get_option( 'astra-settings' );
 
-			// Delete existing dynamic CSS cache
+			// Delete existing dynamic CSS cache.
 			delete_option( 'astra-settings' );
 
 			update_option( 'astra-settings', $settings );
@@ -167,7 +168,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 */
 		public static function export() {
 
-			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' != $_POST['astra_ie_action'] ) {
+			if ( wp_verify_nonce( empty( $_POST['astra_ie_action'] ) ) || 'export_settings' !== $_POST['astra_ie_action'] ) {
 				return;
 			}
 
@@ -183,14 +184,14 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			$theme_options = Astra_Theme_Options::get_options();
 			$theme_options = apply_filters( 'astra_export_data', $theme_options );
 
-			$encode = json_encode( $theme_options );
+			$encode = wp_json_encode( $theme_options );
 
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
 			header( 'Expires: 0' );
 
-			echo $encode;
+			echo esc_attr( $encode );
 
 			// Start the download.
 			die();
@@ -208,8 +209,7 @@ add_filter( 'astra_export_data', 'astra_sites_do_site_options_export', 10, 2 );
  * @return array Existing and extended data.
  */
 function astra_sites_do_site_options_export( $data ) {
-
-	// Astra addons
+	// Astra addons.
 	if ( class_exists( 'Astra_Ext_Extension' ) ) {
 		$data['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
 	}
@@ -227,8 +227,8 @@ if ( ! function_exists( 'astra_admin_errors' ) ) {
 	function astra_admin_errors() {
 		$screen = get_current_screen();
 
-		if ( isset( $_GET['status'] ) && 'imported' == $_GET['status'] ) {
-			 add_settings_error( 'astra-notices', 'imported', esc_html__( 'Import successful.', 'astra-import-export' ), 'updated' );
+		if ( wp_verify_nonce( isset( $_GET['status'] ) ) && 'imported' === $_GET['status'] ) {
+			add_settings_error( 'astra-notices', 'imported', esc_html__( 'Import successful.', 'astra-import-export' ), 'updated' );
 		}
 
 		settings_errors( 'astra-notices' );

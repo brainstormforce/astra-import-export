@@ -11,7 +11,6 @@
  * @package Astra Import Export
  */
 
-
 /**
  * Set constants.
  */
@@ -36,7 +35,7 @@ add_action( 'plugins_loaded', 'astra_import_export_setup' );
 /**
  * Add plugin settings link.
  *
- * @param Array Plugin links to be displayed on the plugins.php
+ * @param Array $links Plugin links to be displayed on the plugins.php.
  * @return Array
  */
 function aix_plugin_action_links( $links ) {
