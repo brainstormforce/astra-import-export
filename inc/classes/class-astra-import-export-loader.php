@@ -99,11 +99,10 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function import() {
-			if ( empty( $_POST['astra_ie_action'] ) || 'import_settings' !== $_POST['astra_ie_action'] ) {
+			if ( ! wp_verify_nonce( $_POST['astra_import_nonce'], 'astra_import_nonce' ) ) {
 				return;
 			}
-
-			if ( ! wp_verify_nonce( $_POST['astra_import_nonce'], 'astra_import_nonce' ) ) {
+			if ( empty( $_POST['astra_ie_action'] ) || 'import_settings' !== $_POST['astra_ie_action'] ) {
 				return;
 			}
 
@@ -130,7 +129,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			}
 
 			// Retrieve the settings from the file and convert the json object to an array.
-			$settings = json_decode( file_get_contents( $import_file ), true );
+			$settings = json_decode( file_get_contents( $import_file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
 			// Astra addons activation.
 			if ( class_exists( 'Astra_Admin_Helper' ) ) {
@@ -140,7 +139,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			// Delete existing dynamic CSS cache.
 			delete_option( 'astra-settings' );
 
-			update_option( 'astra-settings', $settings );
+			update_option( 'astra-settings', $settings['customizer-settings'] );
 
 			wp_safe_redirect( admin_url( 'admin.php?page=astra&status=imported' ) );
 			exit;
@@ -152,10 +151,10 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function export() {
-			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' !== $_POST['astra_ie_action'] ) {
+			if ( ! wp_verify_nonce( $_POST['astra_export_nonce'], 'astra_export_nonce' ) ) {
 				return;
 			}
-			if ( ! wp_verify_nonce( $_POST['astra_export_nonce'], 'astra_export_nonce' ) ) {
+			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' !== $_POST['astra_ie_action'] ) {
 				return;
 			}
 			if ( ! current_user_can( 'manage_options' ) ) {
@@ -163,9 +162,9 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			}
 
 			// Get options from the Customizer API.
-			$theme_options = Astra_Theme_Options::get_options();
-			$theme_options = apply_filters( 'astra_export_data', $theme_options );
-			$encode = wp_json_encode( $theme_options );
+			$theme_options['customizer-settings'] = Astra_Theme_Options::get_options();
+			$theme_options                        = apply_filters( 'astra_export_data', $theme_options );
+			$encode                               = wp_json_encode( $theme_options );
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
@@ -193,6 +192,21 @@ function astra_sites_do_site_options_export( $data ) {
 	}
 	return $data;
 }
+
+/**
+ * Add our admin notices
+ *
+ * @since 0.1
+ */
+function astra_import_export_admin_errors() {
+	$screen = get_current_screen();
+	if ( wp_verify_nonce( isset( $_GET['status'] ) ) && 'imported' === $_GET['status'] ) {
+		add_settings_error( 'astra-notices', 'imported', esc_html__( 'Import successful.', 'astra-import-export' ), 'updated' );
+	}
+	settings_errors( 'astra-notices' );
+}
+
+add_action( 'admin_notices', 'astra_import_export_admin_errors' );
 
 /**
  * Kicking this off by calling 'get_instance()' method
