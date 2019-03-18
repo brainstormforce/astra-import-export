@@ -129,8 +129,14 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				wp_die( esc_html( 'Please upload a file to import', 'astra-import-export' ) );
 			}
 
+			global $wp_filesystem;
+			if ( empty( $wp_filesystem ) ) {
+				require_once ABSPATH . '/wp-admin/includes/file.php';
+				WP_Filesystem();
+			}
 			// Retrieve the settings from the file and convert the json object to an array.
-			$settings = json_decode( file_get_contents( $import_file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$file_contants = $wp_filesystem->get_contents( $import_file );
+			$settings      = json_decode( $file_contants, 1 );
 
 			// Astra addons activation.
 			if ( class_exists( 'Astra_Admin_Helper' ) ) {
