@@ -162,10 +162,10 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				return;
 			}
 
-			// Astra addons.
-			$theme_options['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
-			$theme_options                 = apply_filters( 'astra_export_data', $theme_options );
-			$encode                        = wp_json_encode( $theme_options );
+			// Get options from the Customizer API.
+			$theme_options = Astra_Theme_Options::get_options();
+			$theme_options = apply_filters( 'astra_export_data', $theme_options );
+			$encode = wp_json_encode( $theme_options );
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
@@ -187,8 +187,10 @@ add_filter( 'astra_export_data', 'astra_sites_do_site_options_export', 10, 2 );
  * @return array Existing and extended data.
  */
 function astra_sites_do_site_options_export( $data ) {
-	// Get options from the Customizer API.
-	$data = array_merge( $data, Astra_Theme_Options::get_options() );
+	// Astra addons.
+	if ( class_exists( 'Astra_Ext_Extension' ) ) {
+		$data['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
+	}
 	return $data;
 }
 
