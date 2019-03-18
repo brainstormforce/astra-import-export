@@ -171,12 +171,11 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			// Get options from the Customizer API.
 			$theme_options['customizer-settings'] = Astra_Theme_Options::get_options();
 			$theme_options                        = apply_filters( 'astra_export_data', $theme_options );
-			$encode                               = wp_json_encode( $theme_options );
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
 			header( 'Expires: 0' );
-			echo $encode; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_json_encode( $theme_options );
 			// Start the download.
 			die();
 		}
