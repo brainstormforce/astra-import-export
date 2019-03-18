@@ -99,7 +99,8 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function import() {
-			if ( ! wp_verify_nonce( $_POST['astra_import_nonce'], 'astra_import_nonce' ) ) {
+
+			if ( ! isset( $_POST['astra_import_nonce'] ) || ! wp_verify_nonce( $_POST['astra_import_nonce'], 'astra_import_nonce' ) ) {
 				return;
 			}
 			if ( empty( $_POST['astra_ie_action'] ) || 'import_settings' !== $_POST['astra_ie_action'] ) {
@@ -151,7 +152,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function export() {
-			if ( ! wp_verify_nonce( $_POST['astra_export_nonce'], 'astra_export_nonce' ) ) {
+			if ( ! isset( $_POST['astra_export_nonce'] ) || ! wp_verify_nonce( $_POST['astra_export_nonce'], 'astra_export_nonce' ) ) {
 				return;
 			}
 			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' !== $_POST['astra_ie_action'] ) {
@@ -193,20 +194,22 @@ function astra_sites_do_site_options_export( $data ) {
 	return $data;
 }
 
+add_action( 'admin_notices', 'astra_admin_errors' );
 /**
  * Add our admin notices
  *
  * @since 0.1
  */
-function astra_import_export_admin_errors() {
+function astra_admin_errors() {
 	$screen = get_current_screen();
-	if ( wp_verify_nonce( isset( $_GET['status'] ) ) && 'imported' === $_GET['status'] ) {
+	if ( ! isset( $_GET['status'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return;
+	}
+	if ( 'imported' === $_GET['status'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		add_settings_error( 'astra-notices', 'imported', esc_html__( 'Import successful.', 'astra-import-export' ), 'updated' );
 	}
 	settings_errors( 'astra-notices' );
 }
-
-add_action( 'admin_notices', 'astra_import_export_admin_errors' );
 
 /**
  * Kicking this off by calling 'get_instance()' method
