@@ -96,7 +96,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		/**
 		 * Import our exported file.
 		 *
-		 * @since 1.7
+		 * @since 1.0.0
 		 */
 		public static function import() {
 			if ( empty( $_POST['astra_ie_action'] ) || 'import_settings' !== $_POST['astra_ie_action'] ) {
@@ -149,7 +149,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		/**
 		 * Export our chosen options.
 		 *
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		public static function export() {
 			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' !== $_POST['astra_ie_action'] ) {
@@ -181,7 +181,7 @@ add_filter( 'astra_export_data', 'astra_sites_do_site_options_export', 10, 2 );
 /**
  * Add to our export .json file.
  *
- * @since 1.6
+ * @since 1.0.0
  *
  * @param array $data The current data being exported.
  * @return array Existing and extended data.
