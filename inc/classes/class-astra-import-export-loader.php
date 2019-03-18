@@ -152,7 +152,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @since 1.0
 		 */
 		public static function export() {
-			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' != $_POST['astra_ie_action'] ) {
+			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' !== $_POST['astra_ie_action'] ) {
 				return;
 			}
 			if ( ! wp_verify_nonce( $_POST['astra_export_nonce'], 'astra_export_nonce' ) ) {
@@ -165,12 +165,12 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			// Astra addons.
 			$theme_options['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
 			$theme_options                 = apply_filters( 'astra_export_data', $theme_options );
-			$encode                        = json_encode( $theme_options );
+			$encode                        = wp_json_encode( $theme_options );
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
 			header( 'Expires: 0' );
-			echo $encode;
+			echo $encode; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			// Start the download.
 			die();
 		}
