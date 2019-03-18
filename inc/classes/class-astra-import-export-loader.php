@@ -111,7 +111,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				return;
 			}
 
-			$filename  = $_FILES['import_file']['name'];
+			$filename = $_FILES['import_file']['name'];
 
 			if ( empty( $filename ) ) {
 				return;
@@ -130,10 +130,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			}
 
 			// Retrieve the settings from the file and convert the json object to an array.
-			$request = wp_remote_get( $import_file );
-			// Get the body of the response.
-			$response = wp_remote_retrieve_body( $request );
-			$settings = json_decode( $response, true );
+			$settings = json_decode( file_get_contents( $import_file ), true );
 
 			// Astra addons activation.
 			if ( class_exists( 'Astra_Admin_Helper' ) ) {
@@ -152,35 +149,28 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		/**
 		 * Export our chosen options.
 		 *
-		 * @since 1.7
+		 * @since 1.0
 		 */
 		public static function export() {
-
-			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' !== $_POST['astra_ie_action'] ) {
+			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' != $_POST['astra_ie_action'] ) {
 				return;
 			}
-
 			if ( ! wp_verify_nonce( $_POST['astra_export_nonce'], 'astra_export_nonce' ) ) {
 				return;
 			}
-
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
 
-			// Get options from the Customizer API.
-			$theme_options = Astra_Theme_Options::get_options();
-			$theme_options = apply_filters( 'astra_export_data', $theme_options );
-
-			$encode = wp_json_encode( $theme_options );
-
+			// Astra addons.
+			$theme_options['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
+			$theme_options                 = apply_filters( 'astra_export_data', $theme_options );
+			$encode                        = json_encode( $theme_options );
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
 			header( 'Expires: 0' );
-
-			echo esc_attr( $encode );
-
+			echo $encode;
 			// Start the download.
 			die();
 		}
@@ -197,11 +187,8 @@ add_filter( 'astra_export_data', 'astra_sites_do_site_options_export', 10, 2 );
  * @return array Existing and extended data.
  */
 function astra_sites_do_site_options_export( $data ) {
-	// Astra addons.
-	if ( class_exists( 'Astra_Ext_Extension' ) ) {
-		$data['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
-	}
-
+	// Get options from the Customizer API.
+	$data = array_merge( $data, Astra_Theme_Options::get_options() );
 	return $data;
 }
 
