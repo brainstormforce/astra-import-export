@@ -40,7 +40,7 @@ add_action( 'plugins_loaded', 'astra_import_export_setup' );
  * @return Array
  */
 function aix_plugin_action_links( $links ) {
-	$links[] = '<a href="' . esc_url( get_admin_url( null, 'themes.php?page=astra' ) ) . '">'. __( 'Settings', 'astra-import-export' ) . '</a>';
+	$links[] = '<a href="' . esc_url( get_admin_url( null, 'themes.php?page=astra' ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
 
 	return $links;
 }

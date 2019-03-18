@@ -22,7 +22,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @access private
 		 * @var array $core_options
 		 */
-		static private $core_options = array(
+		private static $core_options = array(
 			'blogname',
 			'blogdescription',
 			'show_on_front',
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -54,8 +54,8 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 
 			add_action( 'astra_welcome_page_right_sidebar_content', array( $this, 'astra_import_export_section' ), 50 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_action( 'admin_init',					array( $this, 'export' ) );
-			add_action( 'admin_init',					array( $this, 'import' ) );
+			add_action( 'admin_init', array( $this, 'export' ) );
+			add_action( 'admin_init', array( $this, 'import' ) );
 		}
 
 		/**
@@ -72,14 +72,14 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 *
 		 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
 		 */
-		function astra_import_export_section( ) {
+		function astra_import_export_section() {
 			// Enqueue
 			wp_enqueue_style( 'astra-import-export-css' );
 			?>
 			<div class="postbox" id="astra-ie">
-				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-download"></span><?php _e( 'Export Settings', 'astra-import-export' );?></h2>
+				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-download"></span><?php _e( 'Export Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
-					<p><?php _e( 'Export Active addons list with Customizer settings.', 'astra-import-export' );?></p>
+					<p><?php _e( 'Export Active addons list with Customizer settings.', 'astra-import-export' ); ?></p>
 					<form method="post">
 						<hr style="margin:10px 0;border-bottom:0;">
 						<p><input type="hidden" name="astra_ie_action" value="export_settings" /></p>
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			</div>
 
 			<div class="postbox" id="astra-ie">
-				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-upload"></span><?php _e( 'Import Settings', 'astra-import-export' );?></h2>
+				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-upload"></span><?php _e( 'Import Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
 					<form method="post" enctype="multipart/form-data">
 						<p>
@@ -128,7 +128,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				return;
 			}
 
-			$filename = $_FILES['import_file']['name'];
+			$filename  = $_FILES['import_file']['name'];
 			$extension = end( explode( '.', $filename ) );
 
 			if ( $extension != 'json' ) {
@@ -150,12 +150,11 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			}
 
 			$astra_theme_options = get_option( 'astra-settings' );
-			
+
 			// Delete existing dynamic CSS cache
 			delete_option( 'astra-settings' );
-			
-			update_option( 'astra-settings', $settings );
 
+			update_option( 'astra-settings', $settings );
 
 			wp_safe_redirect( admin_url( 'admin.php?page=astra&status=imported' ) );
 			exit;
@@ -166,7 +165,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 *
 		 * @since 1.7
 		 */
-		public static function export( ) {
+		public static function export() {
 
 			if ( empty( $_POST['astra_ie_action'] ) || 'export_settings' != $_POST['astra_ie_action'] ) {
 				return;
@@ -181,16 +180,15 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			}
 
 			// Get options from the Customizer API.
-			$theme_options = Astra_Theme_Options::get_options();	
+			$theme_options = Astra_Theme_Options::get_options();
 			$theme_options = apply_filters( 'astra_export_data', $theme_options );
 
-			
 			$encode = json_encode( $theme_options );
 
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
-			header( "Expires: 0" );
+			header( 'Expires: 0' );
 
 			echo $encode;
 
