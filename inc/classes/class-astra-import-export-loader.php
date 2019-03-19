@@ -120,13 +120,13 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			$extension = end( explode( '.', $filename ) );
 
 			if ( 'json' !== $extension ) {
-				wp_die( esc_html( 'Please upload a valid .json file', 'astra-import-export' ) );
+				wp_die( esc_html__( 'Please upload a valid .json file', 'astra-import-export' ) );
 			}
 
 			$import_file = $_FILES['import_file']['tmp_name'];
 
 			if ( empty( $import_file ) ) {
-				wp_die( esc_html( 'Please upload a file to import', 'astra-import-export' ) );
+				wp_die( esc_html__( 'Please upload a file to import', 'astra-import-export' ) );
 			}
 
 			global $wp_filesystem;
