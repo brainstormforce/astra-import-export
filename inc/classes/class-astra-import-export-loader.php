@@ -181,6 +181,12 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 
 			// Get options from the Customizer API.
 			$theme_options['customizer-settings'] = Astra_Theme_Options::get_options();
+			
+			// Add Astra Addons to import.
+			if ( class_exists( 'Astra_Ext_Extension' ) ) {
+				$theme_options['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
+			}
+
 			$theme_options                        = apply_filters( 'astra_export_data', $theme_options );
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
@@ -191,23 +197,6 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			die();
 		}
 	}
-}
-
-add_filter( 'astra_export_data', 'astra_sites_do_site_options_export', 10, 2 );
-/**
- * Add to our export .json file.
- *
- * @since 1.0.0
- *
- * @param array $data The current data being exported.
- * @return array Existing and extended data.
- */
-function astra_sites_do_site_options_export( $data ) {
-	// Astra addons.
-	if ( class_exists( 'Astra_Ext_Extension' ) ) {
-		$data['astra-addons'] = Astra_Ext_Extension::get_enabled_addons();
-	}
-	return $data;
 }
 
 /**
