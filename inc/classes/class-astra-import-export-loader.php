@@ -148,7 +148,18 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 
 			update_option( 'astra-settings', $settings['customizer-settings'] );
 
-			wp_safe_redirect( admin_url( 'admin.php?page=astra&status=imported' ) );
+			wp_safe_redirect(
+				wp_nonce_url(
+					add_query_arg(
+						array(
+							'page'   => 'astra',
+							'status' => 'imported',
+						),
+						admin_url( 'themes.php' )
+					),
+					'astra-import-complete'
+				)
+			);
 			exit;
 		}
 
@@ -199,7 +210,6 @@ function astra_sites_do_site_options_export( $data ) {
 	return $data;
 }
 
-add_action( 'admin_notices', 'astra_admin_errors' );
 /**
  * Add our admin notices
  *
@@ -207,14 +217,24 @@ add_action( 'admin_notices', 'astra_admin_errors' );
  */
 function astra_admin_errors() {
 	$screen = get_current_screen();
+
+	// Verify correct source for the $_GET data.
+	if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( $_GET['_wpnonce'], 'astra-import-complete' ) ) {
+		return;
+	}
+
 	if ( ! isset( $_GET['status'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		return;
 	}
+
 	if ( 'imported' === $_GET['status'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		add_settings_error( 'astra-notices', 'imported', esc_html__( 'Import successful.', 'astra-import-export' ), 'updated' );
 	}
+
 	settings_errors( 'astra-notices' );
 }
+
+add_action( 'admin_init', 'astra_admin_errors' );
 
 /**
  * Kicking this off by calling 'get_instance()' method
