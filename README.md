@@ -1,5 +1,5 @@
-# Import Export for Astra Theme #
-**Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce), [UttamSharma007](https://profiles.wordpress.org/UttamSharma007)  
+# Import / Export Customizer Settings #
+**Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
 **Donate link:** https://www.brainstormforce.com/payment/  
 **Requires at least:** 4.4  
 **Tags:** astra addons export, import, settings, customizer settings, theme settings, theme options  

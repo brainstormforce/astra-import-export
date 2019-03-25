@@ -62,9 +62,8 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			<div class="postbox" id="astra-ie">
 				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-download"></span><?php esc_html_e( 'Export Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
-					<p><?php esc_html_e( 'Export Active addons list with Customizer settings.', 'astra-import-export' ); ?></p>
+					<p><?php esc_html_e( 'Export your current Astra Customizer settings.', 'astra-import-export' ); ?></p>
 					<form method="post">
-						<hr style="margin:10px 0;border-bottom:0;">
 						<p><input type="hidden" name="astra_ie_action" value="export_settings" /></p>
 						<p style="margin-bottom:0">
 							<?php wp_nonce_field( 'astra_export_nonce', 'astra_export_nonce' ); ?>
@@ -77,6 +76,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			<div class="postbox" id="astra-ie">
 				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-upload"></span><?php esc_html_e( 'Import Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
+					<p><?php esc_html_e( 'Import your Astra Customizer settings.', 'astra-import-export' ); ?></p>
 					<form method="post" enctype="multipart/form-data">
 						<p>
 							<input type="file" name="import_file"/>
