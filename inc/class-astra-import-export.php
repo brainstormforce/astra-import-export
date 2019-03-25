@@ -6,7 +6,6 @@
  * @since 1.0.0
  */
 
-
 if ( ! class_exists( 'Astra_Import_Export' ) ) {
 
 	/**
@@ -29,8 +28,9 @@ if ( ! class_exists( 'Astra_Import_Export' ) ) {
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
+
 			return self::$instance;
 		}
 
@@ -38,9 +38,7 @@ if ( ! class_exists( 'Astra_Import_Export' ) ) {
 		 * Constructor function that initializes required actions and hooks
 		 */
 		public function __construct() {
-
 			require_once ASTRA_IMPORT_EXPORT_DIR . 'inc/classes/class-astra-import-export-loader.php';
-			
 		}
 	}
 

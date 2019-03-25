@@ -2,6 +2,6 @@
     display: block;
 }
 
-.wp-admin input[type=file] {
+#astra-ie input[type=file] {
 	width: 100%
 }

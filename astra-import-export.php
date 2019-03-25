@@ -11,49 +11,37 @@
  * @package Astra Import Export
  */
 
-
 /**
  * Set constants.
  */
+define( 'ASTRA_IMPORT_EXPORT_VER', '1.0.0' );
+define( 'ASTRA_IMPORT_EXPORT_FILE', __FILE__ );
+define( 'ASTRA_IMPORT_EXPORT_BASE', plugin_basename( ASTRA_IMPORT_EXPORT_FILE ) );
+define( 'ASTRA_IMPORT_EXPORT_DIR', plugin_dir_path( ASTRA_IMPORT_EXPORT_FILE ) );
+define( 'ASTRA_IMPORT_EXPORT_URI', plugins_url( '/', ASTRA_IMPORT_EXPORT_FILE ) );
 
-if ( ! defined( 'ASTRA_IMPORT_EXPORT_VER' ) ) {
-	define( 'ASTRA_IMPORT_EXPORT_VER', '1.0.0' );
+
+/**
+ * Astra Import Export Setup
+ *
+ * @since 1.0.0
+ */
+function astra_import_export_setup() {
+	require_once ASTRA_IMPORT_EXPORT_DIR . 'inc/class-astra-import-export.php';
 }
 
-if ( ! defined( 'ASTRA_IMPORT_EXPORT_FILE' ) ) {
-	define( 'ASTRA_IMPORT_EXPORT_FILE', __FILE__ );
+add_action( 'plugins_loaded', 'astra_import_export_setup' );
+
+/**
+ * Add plugin settings link.
+ *
+ * @param Array $links Plugin links to be displayed on the plugins.php.
+ * @return Array
+ */
+function aix_plugin_action_links( $links ) {
+	$links[] = '<a href="' . esc_url( get_admin_url( null, 'themes.php?page=astra' ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
+
+	return $links;
 }
 
-if ( ! defined( 'ASTRA_IMPORT_EXPORT_BASE' ) ) {
-	define( 'ASTRA_IMPORT_EXPORT_BASE', plugin_basename( ASTRA_IMPORT_EXPORT_FILE ) );
-}
-
-if ( ! defined( 'ASTRA_IMPORT_EXPORT_DIR' ) ) {
-	define( 'ASTRA_IMPORT_EXPORT_DIR', plugin_dir_path( ASTRA_IMPORT_EXPORT_FILE ) );
-}
-
-if ( ! defined( 'ASTRA_IMPORT_EXPORT_URI' ) ) {
-	define( 'ASTRA_IMPORT_EXPORT_URI', plugins_url( '/', ASTRA_IMPORT_EXPORT_FILE ) );
-}
-
-
-if ( ! function_exists( 'astra_import_export_setup' ) ) :
-
-	/**
-	 * Astra Import Export Setup
-	 *
-	 * @since 1.0.0
-	 */
-	function astra_import_export_setup() {
-		require_once ASTRA_IMPORT_EXPORT_DIR . 'inc/class-astra-import-export.php';
-	}
-
-	add_action( 'plugins_loaded', 'astra_import_export_setup' );
-
-	function my_plugin_action_links( $links ) {
-	   $links[] = '<a href="'. esc_url( get_admin_url(null, 'themes.php?page=astra') ) .'">Settings</a>';
-	   return $links;
-	}
-	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'my_plugin_action_links' );
-
-endif;
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'aix_plugin_action_links' );
