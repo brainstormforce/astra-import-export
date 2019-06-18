@@ -3,9 +3,9 @@
 **Donate link:** https://www.brainstormforce.com/payment/  
 **Requires at least:** 4.4  
 **Tags:** astra addons export, import, settings, customizer settings, theme settings, theme options  
-**Stable tag:** 1.0.0  
-**Requires PHP:** 5.4  
-**Tested up to:** 5.0  
+**Stable tag:** 1.0.1
+**Requires PHP:** 5.4
+**Tested up to:** 5.2.1
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -37,6 +37,9 @@ This plugin can be used only with the Astra theme.
 
 
 ## Changelog ##
+
+### 1.0.1 ###
+- Fixed: PHP warnings Import and Export.
 
 ### 1.0.0 ###
 - Initial release
