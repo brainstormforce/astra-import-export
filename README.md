@@ -11,11 +11,13 @@
 
 ## Description ##
 
-An easy-to-use plugin for the Astra theme that lets you import-export customizer settings.
+Astra theme customizer offers several settings for header/footer layout, sidebar and blog designs, colors, backgrounds, typography and much more. You need to tweak the number of settings to make your site look flawless. These settings can be moved to other Astra sites easily with Import / Export Customizer Settings plugin. It will save repetitive work to arrange all customizer settings for each new Astra site or while moving the site from local to live. 
+
+It is an easy-to-use plugin for the Astra theme that lets you import-export customizer settings.
 
 <strong>Note:</strong>
 
-The Import Export for Astra Theme plugin is created for <a href="https://wpastra.com/?utm_source=wp-repo&utm_campaign=home-page-banner-for-astra-theme&utm_medium=description">Astra theme</a>. You should have the Astra theme installed and activated on your website.
+This Import/Export plugin is created only for the <a href="https://wpastra.com/?utm_source=wp-repo&utm_campaign=home-page-banner-for-astra-theme&utm_medium=description">Astra theme</a>. You should have the Astra theme installed and activated on your website.
 
 ## Installation ##
 
@@ -26,15 +28,17 @@ The Import Export for Astra Theme plugin is created for <a href="https://wpastra
 
 ## Frequently Asked Questions ##
 
-### Which theme can I use this plugin with? ###
+### Can I use this plugin with other themes? ###
 
-This plugin can be used only with the Astra theme.
+No! This plugin will only work with the Astra theme.
 
-### How does this plugin work? ###
+### How to use this plugin? ###
 
-1.Install and activate the plugin
-2.You will find Import Export settings in the Astra Options page. Refer screenshots.
+1. From the Appearance > Astra Options page, install and activate the plugin with a single click. (Make sure you have Astra theme installed and activated.)
+2. After activating the plugin, refresh the page once. You will see import/export options on the same page.
 
+### Will this plugin work for premium Astra version i.e. Astra Pro? ###
+Yes! Astra Pro settings that are available with customizer can be imported/exported with this plugin.
 
 ## Changelog ##
 
