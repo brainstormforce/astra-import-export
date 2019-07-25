@@ -39,7 +39,7 @@ This plugin can be used only with the Astra theme.
 == Changelog ==
 
 = 1.0.1 =
-Fix: PHP Notice in the Import functionality.
+- Fix: PHP Notice in the Import functionality.
 
 = 1.0.0 =
 - Initial release
