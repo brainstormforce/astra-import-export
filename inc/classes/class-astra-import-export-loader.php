@@ -138,8 +138,8 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			if ( empty( $filename ) ) {
 				return;
 			}
-			$temp = explode( '.', $filename );
-			$extension = end( $temp );
+			$file_ext = explode( '.', $filename );
+			$extension = end( $file_ext );
 
 			if ( 'json' !== $extension ) {
 				wp_die( esc_html__( 'Please upload a valid .json file', 'astra-import-export' ) );
