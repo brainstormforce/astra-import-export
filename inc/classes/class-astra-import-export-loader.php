@@ -138,7 +138,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			if ( empty( $filename ) ) {
 				return;
 			}
-			$file_ext = explode( '.', $filename );
+			$file_ext  = explode( '.', $filename );
 			$extension = end( $file_ext );
 
 			if ( 'json' !== $extension ) {
@@ -165,6 +165,12 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $settings['astra-addons'] );
 			}
 
+			$page_slug = 'astra';
+
+			if ( method_exists( 'Astra_Admin_Settings', 'get_theme_page_slug' ) ) {
+				$page_slug = Astra_Admin_Settings::get_theme_page_slug();
+			}
+
 			// Delete existing dynamic CSS cache.
 			delete_option( 'astra-settings' );
 
@@ -174,7 +180,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				wp_nonce_url(
 					add_query_arg(
 						array(
-							'page'   => 'astra',
+							'page'   => $page_slug,
 							'status' => 'imported',
 						),
 						admin_url( 'themes.php' )
