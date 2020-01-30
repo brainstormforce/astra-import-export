@@ -138,7 +138,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			if ( empty( $filename ) ) {
 				return;
 			}
-			$file_ext = explode( '.', $filename );
+			$file_ext  = explode( '.', $filename );
 			$extension = end( $file_ext );
 
 			if ( 'json' !== $extension ) {
