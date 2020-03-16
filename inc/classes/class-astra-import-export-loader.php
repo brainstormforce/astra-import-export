@@ -160,6 +160,16 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			$file_contants = $wp_filesystem->get_contents( $import_file );
 			$settings      = json_decode( $file_contants, 1 );
 
+			if ( isset( $settings['customizer-settings']['theme-auto-version'] ) && defined( 'ASTRA_THEME_VERSION' ) && version_compare( ASTRA_THEME_VERSION, $settings['customizer-settings']['theme-auto-version'], '!=' ) ) {
+				$settings['customizer-settings']['theme-auto-version'] = ASTRA_THEME_VERSION;
+			}
+
+			if ( isset( $settings['customizer-settings']['astra-addon-auto-version'] ) && defined( 'ASTRA_EXT_VER' ) && version_compare( ASTRA_EXT_VER, $settings['customizer-settings']['astra-addon-auto-version'], '!=' ) ) {
+				$settings['customizer-settings']['astra-addon-auto-version'] = ASTRA_EXT_VER;
+			}
+
+			error_log( 'After fix customier JSON data = ' . json_encode( $settings['customizer-settings'] ) );
+
 			// Astra addons activation.
 			if ( class_exists( 'Astra_Admin_Helper' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $settings['astra-addons'] );
