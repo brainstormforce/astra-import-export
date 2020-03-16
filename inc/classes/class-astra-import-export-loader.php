@@ -168,8 +168,6 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				$settings['customizer-settings']['astra-addon-auto-version'] = ASTRA_EXT_VER;
 			}
 
-			error_log( 'After fix customier JSON data = ' . json_encode( $settings['customizer-settings'] ) );
-
 			// Astra addons activation.
 			if ( class_exists( 'Astra_Admin_Helper' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $settings['astra-addons'] );
