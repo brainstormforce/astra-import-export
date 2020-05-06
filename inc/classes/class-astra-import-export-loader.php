@@ -47,22 +47,31 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * Function enqueue_scripts() to enqueue files.
 		 */
 		public function enqueue_scripts() {
-
 			wp_register_style( 'astra-import-export-css', ASTRA_IMPORT_EXPORT_URI . 'inc/assets/css/style.css', array(), ASTRA_IMPORT_EXPORT_VER );
-
 		}
 
 		/**
 		 * Add postMessage support for site title and description for the Theme Customizer.
 		 */
 		public function astra_import_export_section() {
+
+			$theme_name = apply_filters( 'astra_page_title', __( 'Astra', 'astra-import-export' ) );
 			// Enqueue.
 			wp_enqueue_style( 'astra-import-export-css' );
 			?>
 			<div class="postbox" id="astra-ie">
 				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-download"></span><?php esc_html_e( 'Export Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
-					<p><?php esc_html_e( 'Export your current Astra Customizer settings.', 'astra-import-export' ); ?></p>
+					<p>
+						<?php
+							printf(
+								/* translators: %1$s: Theme name. */
+								esc_html__( 'Export your current %1$s customizer settings.', 'astra-import-export' ),
+								$theme_name,
+							);
+						?>
+					</p>
+
 					<form method="post">
 						<p><input type="hidden" name="astra_ie_action" value="export_settings" /></p>
 						<p style="margin-bottom:0">
@@ -76,7 +85,16 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			<div class="postbox" id="astra-ie">
 				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-upload"></span><?php esc_html_e( 'Import Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
-					<p><?php esc_html_e( 'Import your Astra Customizer settings.', 'astra-import-export' ); ?></p>
+					<p>
+						<?php
+							printf(
+								/* translators: %1$s: Theme name. */
+								esc_html__( 'Import your %1$s customizer settings.', 'astra-import-export' ),
+								$theme_name,
+							);
+						?>
+					</p>
+
 					<form method="post" enctype="multipart/form-data">
 						<p>
 							<input type="file" name="import_file"/>
