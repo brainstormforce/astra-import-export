@@ -67,7 +67,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 							printf(
 								/* translators: %1$s: Theme name. */
 								esc_html__( 'Export your current %1$s customizer settings.', 'astra-import-export' ),
-								$theme_name,
+								esc_html( $theme_name ),
 							);
 						?>
 					</p>
@@ -90,7 +90,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 							printf(
 								/* translators: %1$s: Theme name. */
 								esc_html__( 'Import your %1$s customizer settings.', 'astra-import-export' ),
-								$theme_name,
+								esc_html( $theme_name ),
 							);
 						?>
 					</p>
