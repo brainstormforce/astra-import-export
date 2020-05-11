@@ -3,7 +3,7 @@
  * Plugin Name: Import / Export Customizer Settings
  * Plugin URI: https://wpastra.com/
  * Description: This plugin is an add-on for the Astra WordPress Theme. It will help in Import Export Customizer settings.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Brainstorm Force
  * Author URI: http://www.brainstormforce.com
  * Text Domain: astra-import-export
@@ -14,7 +14,7 @@
 /**
  * Set constants.
  */
-define( 'ASTRA_IMPORT_EXPORT_VER', '1.0.2' );
+define( 'ASTRA_IMPORT_EXPORT_VER', '1.0.3' );
 define( 'ASTRA_IMPORT_EXPORT_FILE', __FILE__ );
 define( 'ASTRA_IMPORT_EXPORT_BASE', plugin_basename( ASTRA_IMPORT_EXPORT_FILE ) );
 define( 'ASTRA_IMPORT_EXPORT_DIR', plugin_dir_path( ASTRA_IMPORT_EXPORT_FILE ) );
