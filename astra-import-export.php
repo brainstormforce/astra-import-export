@@ -11,6 +11,10 @@
  * @package Import / Export Customizer Settings
  */
 
+if ( 'astra' !== get_template() ) {
+	return;
+}
+
 /**
  * Set constants.
  */
