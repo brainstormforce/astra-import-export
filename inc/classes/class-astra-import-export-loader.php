@@ -62,15 +62,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			<div class="postbox" id="astra-ie">
 				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-download"></span><?php esc_html_e( 'Export Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
-					<p>
-						<?php
-							printf(
-								/* translators: %1$s: Theme name. */
-								esc_html__( 'Export your current %1$s customizer settings.', 'astra-import-export' ),
-								esc_html( $theme_name ),
-							);
-						?>
-					</p>
+					<p><?php esc_html_e( 'Export your current ' . $theme_name . ' Customizer settings.', 'astra-import-export' ); ?></p>
 
 					<form method="post">
 						<p><input type="hidden" name="astra_ie_action" value="export_settings" /></p>
@@ -85,15 +77,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			<div class="postbox" id="astra-ie">
 				<h2 class="hndle ast-normal-cusror"><span class="dashicons dashicons-upload"></span><?php esc_html_e( 'Import Settings', 'astra-import-export' ); ?></h2>
 				<div class="inside">
-					<p>
-						<?php
-							printf(
-								/* translators: %1$s: Theme name. */
-								esc_html__( 'Import your %1$s customizer settings.', 'astra-import-export' ),
-								esc_html( $theme_name ),
-							);
-						?>
-					</p>
+					<p><?php esc_html_e( 'Import your ' . $theme_name . ' Customizer settings.', 'astra-import-export' ); ?>
 
 					<form method="post" enctype="multipart/form-data">
 						<p>
