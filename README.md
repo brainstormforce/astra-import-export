@@ -43,7 +43,7 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 ## Changelog ##
 
 ### 1.0.3 ###
-- Fix: Astra theme name not updating after whitelabel.
+- Fix: White label settings does not get applied for the theme name.
 
 ### 1.0.2 ###
 - Fix: Security Update.
