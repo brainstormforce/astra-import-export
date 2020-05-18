@@ -218,7 +218,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			$theme_options = apply_filters( 'astra_export_data', $theme_options );
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
-			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . date( 'm-d-Y' ) . '.json' );
+			header( 'Content-Disposition: attachment; filename=astra-settings-export-' . gmdate( 'm-d-Y' ) . '.json' );
 			header( 'Expires: 0' );
 			echo wp_json_encode( $theme_options );
 			// Start the download.
