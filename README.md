@@ -3,7 +3,7 @@
 **Donate link:** https://www.brainstormforce.com/payment/  
 **Requires at least:** 4.4  
 **Tags:** astra addons export, import, settings, customizer settings, theme settings, theme options  
-**Stable tag:** 1.0.2  
+**Stable tag:** 1.0.3  
 **Requires PHP:** 5.4  
 **Tested up to:** 5.4.1 
 **License:** GPLv2 or later  
@@ -41,6 +41,11 @@ No! This plugin will only work with the Astra theme.
 Yes! Astra Pro settings that are available with customizer can be imported/exported with this plugin.
 
 ## Changelog ##
+
+### 1.0.3 ###
+- Improvement: Compatibility with latest WordPress PHP_CodeSniffer rules.
+- Fix: Setting page and after import link White Label compatible.
+- Fix: Theme name on Options page is now White Label compatible.
 
 ### 1.0.2 ###
 - Fix: Security Update.
