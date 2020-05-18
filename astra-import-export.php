@@ -43,7 +43,14 @@ add_action( 'plugins_loaded', 'astra_import_export_setup' );
  * @return Array
  */
 function aix_plugin_action_links( $links ) {
-	$links[] = '<a href="' . esc_url( get_admin_url( null, 'themes.php?page=astra' ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
+
+	$page_slug = 'astra';
+
+	if ( is_callable( 'Astra_Admin_Settings::get_theme_page_slug' ) ) {
+		$page_slug = Astra_Admin_Settings::get_theme_page_slug();
+	}
+
+	$links[] = '<a href="' . esc_url( get_admin_url( null, 'themes.php?page=' . $page_slug ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
 
 	return $links;
 }

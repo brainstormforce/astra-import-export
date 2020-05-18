@@ -43,7 +43,9 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 == Changelog ==
 
 = 1.0.3 =
-- Fix: White label settings does not get applied for the theme name.
+- Improvement: Compatibility with latest WordPress PHP_CodeSniffer rules.
+- Fix: Setting page and after import link White Label compatible.
+- Fix: Theme name on Options page is now White Label compatible.
 
 = 1.0.2 =
 - Fix: Security Update.
