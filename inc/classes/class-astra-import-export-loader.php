@@ -167,7 +167,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 
 			$page_slug = 'astra';
 
-			if ( method_exists( 'Astra_Admin_Settings', 'get_theme_page_slug' ) ) {
+			if ( is_callable( 'Astra_Admin_Settings::get_theme_page_slug' ) ) {
 				$page_slug = Astra_Admin_Settings::get_theme_page_slug();
 			}
 
