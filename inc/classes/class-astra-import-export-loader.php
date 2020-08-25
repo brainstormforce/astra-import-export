@@ -102,7 +102,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 */
 		public function astra_admin_errors() {
 			// Verify correct source for the $_GET data.
-			if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( $_GET['_wpnonce'], 'astra-import-complete' ) ) {
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'astra-import-complete' ) ) {
 				return;
 			}
 
