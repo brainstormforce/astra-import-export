@@ -161,8 +161,6 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			// Retrieve the settings from the file and convert the json object to an array.
 			$file_contants = $wp_filesystem->get_contents( $import_file );
 			$settings      = json_decode( $file_contants, 1 );
-			// var_dump($settings['astra-addons']);
-			// wp_die();
 			// Astra addons activation.
 			if ( class_exists( 'Astra_Admin_Helper' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $settings['astra-addons'] );
