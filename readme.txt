@@ -42,6 +42,9 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 
 == Changelog ==
 
+= 1.0.5 =
+- Improvement: PHP 8.0 compatibility.
+
 = 1.0.4 =
 - Fix: Security hardening.
 
