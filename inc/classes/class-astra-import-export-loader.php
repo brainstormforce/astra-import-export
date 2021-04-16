@@ -158,6 +158,19 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				require_once ABSPATH . '/wp-admin/includes/file.php';
 				WP_Filesystem();
 			}
+
+			//Check if there are some errors and print them
+			if ( is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
+				$error_messages = $wp_filesystem->errors->get_error_messages();
+				$print_messages = '';
+
+				foreach ( $error_messages as $message ) {
+					$print_messages .= $message . ' ';
+				}
+
+				wp_die( esc_html__( $print_messages, 'astra-import-export' ) );
+			}
+
 			// Retrieve the settings from the file and convert the json object to an array.
 			$file_contants = $wp_filesystem->get_contents( $import_file );
 			$settings      = json_decode( $file_contants, 1 );
