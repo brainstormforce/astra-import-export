@@ -176,7 +176,11 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			// Delete existing dynamic CSS cache.
 			delete_option( 'astra-settings' );
 
-			update_option( 'astra-settings', $settings['customizer-settings'] );
+			if ( ! empty( $settings['customizer-settings'] ) ) {
+				foreach ( $settings['customizer-settings'] as $option => $value ) {
+					update_option( $option, $value );
+				}
+			}
 
 			wp_safe_redirect(
 				wp_nonce_url(
@@ -210,7 +214,17 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			}
 
 			// Get options from the Customizer API.
-			$theme_options['customizer-settings'] = Astra_Theme_Options::get_options();
+			$theme_options['customizer-settings']['astra-settings'] = Astra_Theme_Options::get_options();
+
+			// Get Global color palette option.
+			if ( function_exists( 'astra_get_palette_colors' ) ) {
+				$theme_options['customizer-settings']['astra-color-palettes'] = astra_get_palette_colors();
+			}
+
+			// Get Typography Presets option.
+			if ( function_exists( 'astra_get_typography_presets' ) ) {
+				$theme_options['customizer-settings']['astra-typography-presets'] = astra_get_typography_presets();
+			}
 
 			// Add Astra Addons to import.
 			if ( class_exists( 'Astra_Ext_Extension' ) ) {
