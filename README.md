@@ -3,7 +3,7 @@
 **Donate link:** https://www.brainstormforce.com/payment/  
 **Requires at least:** 4.4  
 **Tags:** astra addons export, import, settings, customizer settings, theme settings, theme options  
-**Stable tag:** 1.0.4  
+**Stable tag:** 1.0.5  
 **Requires PHP:** 5.4  
 **Tested up to:** 5.8 
 **License:** GPLv2 or later  
