@@ -43,7 +43,7 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 == Changelog ==
 
 = 1.0.5 = 
-- Improvement: Added Astra Global Color Palette and Typography Preset options Compatibility.
+- Improvement: Added Astra Global Color Palette and Typography Preset options compatibility.
 
 = 1.0.4 =
 - Fix: Security hardening.
