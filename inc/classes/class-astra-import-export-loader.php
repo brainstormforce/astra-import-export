@@ -163,7 +163,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			$settings      = json_decode( $file_contants, 1 );
 
 			// Astra addons activation.
-			if ( class_exists( 'Astra_Admin_Helper' ) ) {
+			if ( class_exists( 'Astra_Admin_Helper' ) && isset( $settings['astra-addons'] ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $settings['astra-addons'] );
 			}
 

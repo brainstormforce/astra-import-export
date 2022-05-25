@@ -3,9 +3,9 @@ Contributors: brainstormforce
 Donate link: https://www.brainstormforce.com/payment/
 Requires at least: 4.4
 Tags: astra addons export, import, settings, customizer settings, theme settings, theme options
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 5.4
-Tested up to: 5.9
+Tested up to: 6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,9 @@ No! This plugin will only work with the Astra theme.
 Yes! Astra Pro settings that are available with customizer can be imported/exported with this plugin.
 
 == Changelog ==
+
+= 1.0.6 = 
+- Fix: PHP notice while importing the settings - Undefined index astra-addons
 
 = 1.0.5 = 
 - Improvement: Added Astra Global Color Palette and Typography Preset options compatibility.
