@@ -1,5 +1,4 @@
 import { __ } from "@wordpress/i18n";
-import { FormFileUpload } from '@wordpress/components';
 
 const Import = () => {
 	return (
@@ -7,7 +6,7 @@ const Import = () => {
 			<section className={ `astra-child-field block px-12 py-8 justify-between border-b border-t border-solid border-slate-200` }>
 				<div className="w-full flex items-center">
 					<h3 className="p-0 flex-1 inline-flex justify-right text-xl leading-6 font-semibold text-slate-800">
-						{__("Import Settings", "astra")}
+						{__("Import Settings", "astra-import-export")}
 					</h3>
 					<div className='flex justify-right items-center'>
 						<form method="post" className="inline-flex ast-import-settings-form" encType="multipart/form-data">
@@ -18,7 +17,7 @@ const Import = () => {
 								type="submit"
 								className="inline-flex ml-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-astra focus-visible:bg-astra-hover hover:bg-astra-hover focus:outline-none"
 							>
-								{__("Import", "astra")}
+								{__("Import", "astra-import-export")}
 							</button>
 						</form>
 					</div>
