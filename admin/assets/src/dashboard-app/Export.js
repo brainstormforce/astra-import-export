@@ -3,7 +3,7 @@ import { __ } from "@wordpress/i18n";
 const Export = () => {
 	return (
 		<>
-			<section className={ `astra-child-field block px-12 py-8 justify-between` }>
+			<section className={ `astra-child-field block px-8 py-8 justify-between` }>
 				<div className="w-full flex items-center">
 					<h3 className="p-0 flex-1 inline-flex justify-right text-xl leading-6 font-semibold text-slate-800">
 						{__("Export Settings", "astra-import-export")}
@@ -22,7 +22,7 @@ const Export = () => {
 					</div>
 				</div>
 
-				<p className="mt-2 text-sm text-slate-600 w-9/12">
+				<p className="mt-2 text-sm text-slate-600 w-9/12 tablet:w-full">
 					{ __( `Export your current ${astra_admin.theme_name} Customizer settings.`, 'astra-import-export' ) }
 				</p>
 			</section>

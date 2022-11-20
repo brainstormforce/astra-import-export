@@ -64,7 +64,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 * @since x.x.x
 		 */
 		public function init_admin_settings() {
-			self::$astra_with_modern_dashboard = version_compare( ASTRA_THEME_VERSION, '4.0.0', '>=' ) ? true : false;
+			self::$astra_with_modern_dashboard = ( defined( 'ASTRA_THEME_VERSION' ) && version_compare( ASTRA_THEME_VERSION, '4.0.0', '>=' ) ) ? true : false;
 			if ( false === self::$astra_with_modern_dashboard ) {
 				add_action( 'astra_welcome_page_right_sidebar_content', array( $this, 'astra_import_export_section' ), 50 );
 			}
