@@ -73,6 +73,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		/**
 		 * Function enqueue_scripts() to enqueue files.
 		 * @since 1.0.7
+                 * @since 1.0.7
 		 */
 		public function enqueue_scripts() {
 			if ( true === self::$astra_with_modern_dashboard && ( ! empty( $_GET['page'] ) && ( self::$home_slug === $_GET['page'] || false !== strpos( $_GET['page'], self::$home_slug . '_' ) ) ) ) { //phpcs:ignore.
