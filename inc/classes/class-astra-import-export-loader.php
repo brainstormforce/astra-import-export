@@ -61,7 +61,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		/**
 		 * Include required classes.
 		 *
-		 * @since x.x.x
+		 * @since 1.0.7
 		 */
 		public function init_admin_settings() {
 			self::$astra_with_modern_dashboard = ( defined( 'ASTRA_THEME_VERSION' ) && version_compare( ASTRA_THEME_VERSION, '4.0.0', '>=' ) ) ? true : false;
