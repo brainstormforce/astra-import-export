@@ -72,7 +72,6 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 
 		/**
 		 * Function enqueue_scripts() to enqueue files.
-		 * @since 1.0.7
                  * @since 1.0.7
 		 */
 		public function enqueue_scripts() {
