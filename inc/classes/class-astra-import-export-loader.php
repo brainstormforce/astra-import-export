@@ -23,6 +23,20 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		private static $instance;
 
 		/**
+		 * Check Astra is with 4.0.0
+		 *
+		 * @var bool
+		 */
+		private static $astra_with_modern_dashboard = false;
+
+		/**
+		 * Admin page for Astra.
+		 *
+		 * @var bool
+		 */
+		private static $home_slug = 'astra';
+
+		/**
 		 *  Initiator
 		 */
 		public static function get_instance() {
@@ -36,7 +50,8 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		 *  Constructor
 		 */
 		public function __construct() {
-			add_action( 'astra_welcome_page_right_sidebar_content', array( $this, 'astra_import_export_section' ), 50 );
+			self::$home_slug = apply_filters( 'astra_theme_page_slug', 'astra' );
+			add_action( 'after_setup_theme', array( $this, 'init_admin_settings' ), 99 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			add_action( 'admin_init', array( $this, 'export' ) );
 			add_action( 'admin_init', array( $this, 'import' ) );
@@ -44,10 +59,48 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 		}
 
 		/**
+		 * Include required classes.
+		 *
+		 * @since 1.0.7
+		 */
+		public function init_admin_settings() {
+			self::$astra_with_modern_dashboard = ( defined( 'ASTRA_THEME_VERSION' ) && version_compare( ASTRA_THEME_VERSION, '4.0.0', '>=' ) ) ? true : false;
+			if ( false === self::$astra_with_modern_dashboard ) {
+				add_action( 'astra_welcome_page_right_sidebar_content', array( $this, 'astra_import_export_section' ), 50 );
+			}
+		}
+
+		/**
 		 * Function enqueue_scripts() to enqueue files.
+                 * @since 1.0.7
 		 */
 		public function enqueue_scripts() {
-			wp_register_style( 'astra-import-export-css', ASTRA_IMPORT_EXPORT_URI . 'inc/assets/css/style.css', array(), ASTRA_IMPORT_EXPORT_VER );
+			if ( true === self::$astra_with_modern_dashboard && ( ! empty( $_GET['page'] ) && ( self::$home_slug === $_GET['page'] || false !== strpos( $_GET['page'], self::$home_slug . '_' ) ) ) ) { //phpcs:ignore.
+				$script_asset_path = ASTRA_IMPORT_EXPORT_DIR . 'admin/assets/build/dashboard-app.asset.php';
+				$script_info = file_exists( $script_asset_path ) ? include $script_asset_path : array(
+					'dependencies' => array(),
+					'version'      => ASTRA_IMPORT_EXPORT_VER,
+				);
+
+				$script_dep = array_merge( $script_info['dependencies'], array( 'wp-hooks' ) );
+
+				wp_enqueue_script(
+					'astra-import-export-admin-setup',
+					ASTRA_IMPORT_EXPORT_URI . 'admin/assets/build/dashboard-app.js',
+					$script_dep,
+					$script_info['version'],
+					true
+				);
+
+				wp_localize_script( 'astra-import-export-admin-setup', 'ast_import_export_admin', apply_filters( 'astra_import_export_localize', array(
+					'astra_import_nonce'     => wp_create_nonce( 'astra_import_nonce' ),
+					'astra_export_nonce'     => wp_create_nonce( 'astra_export_nonce' ),
+				) ) );
+
+				wp_enqueue_style( 'astra-import-export-css', ASTRA_IMPORT_EXPORT_URI . 'inc/assets/css/modern-admin-style.css', array(), ASTRA_IMPORT_EXPORT_VER );
+			} else {
+				wp_register_style( 'astra-import-export-css', ASTRA_IMPORT_EXPORT_URI . 'inc/assets/css/style.css', array(), ASTRA_IMPORT_EXPORT_VER );
+			}
 		}
 
 		/**
@@ -135,7 +188,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				return;
 			}
 
-			$filename = $_FILES['import_file']['name'];
+			$filename = isset( $_FILES['import_file']['name'] ) ? $_FILES['import_file']['name'] : '';
 
 			if ( empty( $filename ) ) {
 				return;
@@ -167,10 +220,15 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				Astra_Admin_Helper::update_admin_settings_option( '_astra_ext_enabled_extensions', $settings['astra-addons'] );
 			}
 
-			$page_slug = 'astra';
+			$page_slug = self::$home_slug;
+			$redirection_url = admin_url( 'themes.php' );
 
 			if ( is_callable( 'Astra_Admin_Settings::get_theme_page_slug' ) ) {
 				$page_slug = Astra_Admin_Settings::get_theme_page_slug();
+			}
+
+			if ( is_callable( 'Astra_Menu::get_theme_page_slug' ) ) {
+				$redirection_url = admin_url( 'admin.php' );
 			}
 
 			// Delete existing dynamic CSS cache.
@@ -189,7 +247,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 							'page'   => $page_slug,
 							'status' => 'imported',
 						),
-						admin_url( 'themes.php' )
+						$redirection_url
 					),
 					'astra-import-complete'
 				)

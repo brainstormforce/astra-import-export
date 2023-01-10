@@ -1,0 +1,25 @@
+{
+	"name": "astra_admin",
+	"version": "1.0.0",
+	"description": "Astra Import Export Customizer Admin",
+	"main": "",
+	"scripts": {
+		"build": "wp-scripts build",
+		"start": "wp-scripts start"
+	},
+	"dependencies": {
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
+	},
+	"devDependencies": {
+		"@wordpress/i18n": "^3.16.0",
+		"@wordpress/scripts": "^19.2.2",
+		"autoprefixer": "10.4.5"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/brainstormforce/astra.git"
+	},
+	"author": "Brainstorm Force",
+	"license": "ISC"
+}
