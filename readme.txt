@@ -19,6 +19,8 @@ It is an easy-to-use plugin for the Astra theme that lets you import-export cust
 
 This Import/Export plugin is created only for the <a href="https://wpastra.com/?utm_source=wp-repo&utm_campaign=home-page-banner-for-astra-theme&utm_medium=description">Astra theme</a>. You should have the Astra theme installed and activated on your website.
 
+[Try it out on a free dummy site](https://bsf.io/astra-import-export-demo)
+
 == Installation ==
 
 1. Make sure you have the Astra theme installed and activated.
