@@ -44,6 +44,9 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 
 ## Changelog ##
 
+### 1.1.0 ###
+- New: Capability to import-export header, footer layouts separately.
+
 ### 1.0.7 ###
 - Improvement: Compatibility with Astra 4.0.0.
 
