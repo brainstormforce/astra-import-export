@@ -3,15 +3,15 @@ Contributors: brainstormforce
 Donate link: https://www.brainstormforce.com/payment/
 Requires at least: 4.4
 Tags: astra addons export, import, settings, customizer settings, theme settings, theme options
-Stable tag: 1.0.7
+Stable tag: 1.1.0
 Requires PHP: 5.4
-Tested up to: 6.3
+Tested up to: 6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Astra theme customizer offers several settings for header/footer layout, sidebar and blog designs, colors, backgrounds, typography and much more. You need to tweak the number of settings to make your site look flawless. These settings can be moved to other Astra sites easily with Import / Export Customizer Settings plugin. It will save repetitive work to arrange all customizer settings for each new Astra site or while moving the site from local to live. 
+Astra theme customizer offers several settings for header/footer layout, sidebar and blog designs, colors, backgrounds, typography and much more. You need to tweak the number of settings to make your site look flawless. These settings can be moved to other Astra sites easily with Import / Export Customizer Settings plugin. It will save repetitive work to arrange all customizer settings for each new Astra site or while moving the site from local to live.
 
 It is an easy-to-use plugin for the Astra theme that lets you import-export customizer settings.
 
@@ -44,13 +44,13 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 
 == Changelog ==
 
-= 1.0.7 = 
+= 1.0.7 =
 - Improvement: Compatibility with Astra 4.0.0.
 
-= 1.0.6 = 
+= 1.0.6 =
 - Fix: PHP notice while importing the settings - Undefined index astra-addons
 
-= 1.0.5 = 
+= 1.0.5 =
 - Improvement: Added Astra Global Color Palette and Typography Preset options compatibility.
 
 = 1.0.4 =

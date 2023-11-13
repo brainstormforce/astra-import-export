@@ -19,3 +19,25 @@
     outline: 2px solid transparent;
     outline-offset: 2px;
 }
+select.ast_customizer_data_type {
+    font-size: 0.875rem;
+    color: #475569;
+    border-width: 0px;
+    margin-top: 0;
+    border-radius: 0.25rem;
+    padding: 4px 10px;
+    margin-right: 1em;
+    border: 1px solid #ddd;
+}
+select.ast_customizer_data_type:hover {
+    color: #475569;
+}
+select.ast_customizer_data_type:focus {
+    border: 1px solid rgb(37 99 235);
+    outline: none;
+    box-shadow: none;
+}
+select#ast_customizer_data_type_export {
+    min-width: 205px;
+    width: 100%;
+}
