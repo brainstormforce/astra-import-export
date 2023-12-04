@@ -44,6 +44,9 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 
 == Changelog ==
 
+= 1.0.8 = 
+- Fix: Settings link is not redirecting on correct place.
+
 = 1.0.7 = 
 - Improvement: Compatibility with Astra 4.0.0.
 
