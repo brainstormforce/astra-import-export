@@ -50,7 +50,12 @@ function aix_plugin_action_links( $links ) {
 		$page_slug = Astra_Admin_Settings::get_theme_page_slug();
 	}
 
-	$links[] = '<a href="' . esc_url( get_admin_url( null, 'themes.php?page=' . $page_slug ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
+	$query_args = array(
+		'page' => $page_slug,
+		'path' => 'settings',
+	);
+
+	$links[] = '<a href="' . esc_url( add_query_arg( $query_args, get_admin_url( null, 'themes.php' ) ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
 
 	return $links;
 }
