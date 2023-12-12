@@ -69,8 +69,6 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 			if ( false === self::$astra_with_modern_dashboard ) {
 				add_action( 'astra_welcome_page_right_sidebar_content', array( $this, 'astra_import_export_section' ), 50 );
 			}
-
-			// error_log( print_r( Astra_Customizer::$customizer_header_configs, true ) );
 		}
 
 		/**
