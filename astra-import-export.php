@@ -3,7 +3,7 @@
  * Plugin Name: Import / Export Customizer Settings
  * Plugin URI: https://wpastra.com/
  * Description: This plugin is an add-on for the Astra WordPress Theme. It will help in Import Export Customizer settings.
- * Version: 1.0.7
+ * Version: 1.1.0
  * Author: Brainstorm Force
  * Author URI: http://www.brainstormforce.com
  * Text Domain: astra-import-export
@@ -18,7 +18,7 @@ if ( 'astra' !== get_template() ) {
 /**
  * Set constants.
  */
-define( 'ASTRA_IMPORT_EXPORT_VER', '1.0.7' );
+define( 'ASTRA_IMPORT_EXPORT_VER', '1.1.0' );
 define( 'ASTRA_IMPORT_EXPORT_FILE', __FILE__ );
 define( 'ASTRA_IMPORT_EXPORT_BASE', plugin_basename( ASTRA_IMPORT_EXPORT_FILE ) );
 define( 'ASTRA_IMPORT_EXPORT_DIR', plugin_dir_path( ASTRA_IMPORT_EXPORT_FILE ) );
@@ -50,7 +50,12 @@ function aix_plugin_action_links( $links ) {
 		$page_slug = Astra_Admin_Settings::get_theme_page_slug();
 	}
 
-	$links[] = '<a href="' . esc_url( get_admin_url( null, 'themes.php?page=' . $page_slug ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
+	$query_args = array(
+		'page' => $page_slug,
+		'path' => 'settings',
+	);
+
+	$links[] = '<a href="' . esc_url( add_query_arg( $query_args, get_admin_url( null, 'themes.php' ) ) ) . '">' . __( 'Settings', 'astra-import-export' ) . '</a>';
 
 	return $links;
 }
