@@ -96,6 +96,7 @@ if ( ! class_exists( 'Astra_Import_Export_Loader' ) ) {
 				wp_localize_script( 'astra-import-export-admin-setup', 'ast_import_export_admin', apply_filters( 'astra_import_export_localize', array(
 					'astra_import_nonce'     => wp_create_nonce( 'astra_import_nonce' ),
 					'astra_export_nonce'     => wp_create_nonce( 'astra_export_nonce' ),
+					'header_footer_layout_caps' => ( defined( 'ASTRA_THEME_VERSION' ) && version_compare( ASTRA_THEME_VERSION, '4.5.2', '>=' ) ) ? true : false,
 				) ) );
 
 				wp_enqueue_style( 'astra-import-export-css', ASTRA_IMPORT_EXPORT_URI . 'inc/assets/css/modern-admin-style.css', array(), ASTRA_IMPORT_EXPORT_VER );
