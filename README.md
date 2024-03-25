@@ -45,9 +45,6 @@ Yes! Astra Pro settings that are available with customizer can be imported/expor
 ## Changelog ##
 
 ### 1.1.0 ###
-- Improvement: Compatibility with WordPress 6.5.
-
-### 1.1.0 ###
 - New: Capability to import-export header, footer layouts separately.
 
 ### 1.0.7 ###
