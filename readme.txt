@@ -5,7 +5,7 @@ Requires at least: 4.4
 Tags: astra addons export, import, settings, customizer settings, theme settings, theme options
 Stable tag: 1.1.0
 Requires PHP: 5.4
-Tested up to: 6.7
+Tested up to: 6.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,8 +36,8 @@ No! This plugin will only work with the Astra theme.
 
 = How to use this plugin? =
 
-1. From the Appearance > Astra Options page, install and activate the plugin with a single click. (Make sure you have Astra theme installed and activated.)
-2. After activating the plugin, refresh the page once. You will see import/export options on the same page.
+1. Install and activate the Import / Export Customizer Settings plugin from the Plugins page.(Make sure you have Astra theme installed and activated.)
+2. Go to Astra Dashboard > Settings, where you’ll find Import Settings (to upload and apply a settings file) and Export Settings (to download your current Astra Customizer settings).
 
 = Will this plugin work for premium Astra version i.e. Astra Pro? =
 Yes! Astra Pro settings that are available with customizer can be imported/exported with this plugin.
