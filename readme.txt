@@ -5,7 +5,7 @@ Requires at least: 4.4
 Tags: astra addons export, import, settings, customizer settings, theme settings, theme options
 Stable tag: 1.1.0
 Requires PHP: 5.4
-Tested up to: 6.7.2
+Tested up to: 6.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
