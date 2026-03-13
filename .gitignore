@@ -19,3 +19,5 @@ phpcs-full.log
 
 # Ignore Composer's directories
 vendor/
+.claude/settings.local.json
+config.bat
